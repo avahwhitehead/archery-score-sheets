@@ -4,6 +4,8 @@ from tkinter import StringVar
 import darkdetect
 import sv_ttk
 
+from src.components.NumericEntry import NumericEntry
+
 
 class AddScoreForm(tk.Frame):
 	def __init__(self, parent, *args, **kwargs):
@@ -35,7 +37,7 @@ class AddScoreForm(tk.Frame):
 		score_label = tk.Label(input_frame, textvariable=score_label_var)
 		score_label.grid(row=0, column=1, sticky="w")
 
-		score_input = tk.Entry(input_frame)
+		score_input = NumericEntry(input_frame)
 		score_input.grid(row=1, column=1, sticky="nsew")
 
 
