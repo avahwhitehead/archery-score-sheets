@@ -5,7 +5,6 @@ import sv_ttk
 import tksheet
 
 from src.data.archerydb import ArcheryDb
-from src.data.databaseinit import DatabaseInit
 from src.pages.addscoreform import AddScoreForm
 
 
@@ -22,16 +21,17 @@ class ScoresPage(tk.Frame):
 		self.grid_rowconfigure(1, weight=1, minsize=40)
 
 		# Input fields
-		AddScoreForm(self).grid(row=0, sticky="nsew", padx=10, pady=10)
+		add_score_form = AddScoreForm(self)
+		add_score_form.grid(row=0, sticky="nsew", padx=10, pady=10)
 
 		# Display grid
 		data = self.database.query_all(
 			'''
 			SELECT 
 				Archer.Name,
-				BowType.Name,
 				Gender.Name,
 				AgeCategory.Name,
+				BowType.Name,
 				Round.Name,
 				Score.Golds,
 				Score.Score
@@ -44,18 +44,22 @@ class ScoresPage(tk.Frame):
 			'''
 		)
 
+		sheet_frame = tk.Frame(self)
+		sheet_frame.grid(row=1, sticky="nsew")
+		sheet_frame.grid_rowconfigure(0, weight=1)
+		sheet_frame.grid_columnconfigure(0, weight=1)
+
+		sheet_headers = ['Name', 'Gender', 'Age Category', 'Bow Type', 'Round', 'Golds', 'Score']
+
 		self.sheet = tksheet.Sheet(
-			self,
-			headers=['Name', 'Gender', 'Age Category', 'Bow Type', 'Round', 'Golds', 'Score'],
-			# data=[[f"Row {r}, Column {c}\nnewline1\nnewline2" for c in range(5)] for r in range(500)],
+			sheet_frame,
+			headers=sheet_headers,
 			data=data,
-			auto_resize_rows=10,
-			auto_resize_columns=100,
 			vertical_grid_to_end_of_window=True,
 		)
 		self.sheet.enable_bindings()
 
-		self.sheet.grid(row=1, sticky="nsew", padx=10, pady=10)
+		self.sheet.grid(row=0, sticky="nsew", padx=10, pady=10)
 
 
 if __name__ == "__main__":

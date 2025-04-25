@@ -15,6 +15,7 @@ class AddScoreForm(tk.Frame):
 		self.database = ArcheryDb()
 
 		genders = self.database.query_all('SELECT Name FROM Gender')
+		genders = [g['Name'] for g in genders]
 
 		# Root layout
 		self.grid_columnconfigure(0, weight=1)
@@ -42,7 +43,7 @@ class AddScoreForm(tk.Frame):
 		gender_label.grid(row=0, column=1, sticky="w")
 
 		gender_var = tk.StringVar()
-		gender_var.set("Male")
+		gender_var.set(genders[0])
 
 		gender_input = tk.OptionMenu(input_frame, gender_var, *genders)
 		gender_input.grid(row=1, column=1, sticky="nsew")

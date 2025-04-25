@@ -4,6 +4,7 @@ import sqlite3
 class ArcheryDb:
 	def __init__(self):
 		self.connection = sqlite3.connect('C:\\tmp\\test_archery.db')
+		self.connection.row_factory = sqlite3.Row
 
 	def query_one(self, query):
 		cursor = self.connection.cursor()
