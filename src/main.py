@@ -12,14 +12,8 @@ class MainApplication(tk.Frame):
 		tk.Frame.__init__(self, parent, *args, **kwargs)
 		self.parent = parent
 
-		text_var = tk.StringVar()
-		text_var.set("here is my text on the mian page!")
-
-		label = tk.Label(self, textvariable=text_var)
-		label.pack()
-
 		user_page = ScoresPage(self)
-		user_page.pack()
+		user_page.pack(expand=True, fill="both")
 
 
 if __name__ == "__main__":
