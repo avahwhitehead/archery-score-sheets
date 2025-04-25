@@ -3,6 +3,7 @@ import tkinter as tk
 import darkdetect
 import sv_ttk
 
+from src.data.databaseinit import DatabaseInit
 from src.pages.scorespage import ScoresPage
 
 
@@ -23,6 +24,8 @@ class MainApplication(tk.Frame):
 
 if __name__ == "__main__":
 	root = tk.Tk()
+
+	DatabaseInit().initialize()
 
 	sv_ttk.set_theme(darkdetect.theme())
 
