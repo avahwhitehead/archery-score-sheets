@@ -1,0 +1,15 @@
+= Scoresheets
+:author: Avah Whitehead
+
+== Why?
+
+As the records office for an archery club, I inherited a couple of massively complicated spreadsheets from the previous person.
+These spreadsheets have been the bane of my existence ever since and so I am building a simple app to store the data I need in an sqlite database.
+
+The goal is to speed up adding scores to the club records, and to reduce the maintenance overhead when ArcheryGB inevitably changes their categories again.
+
+== Technology
+
+* Python 3
+* Tkinter gui (already beginning to regret this, but hey ho)
+* sqlite3 database
