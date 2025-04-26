@@ -20,7 +20,7 @@ class LabeledDateEntry(tk.Frame):
 		self.label = tk.Label(self, textvariable=self.label_var)
 		self.label.grid(row=0, column=0, sticky="w")
 
-		combobox = ctk.CTkComboBox(self)
+		self.combobox = ctk.CTkComboBox(self)
 
-		date_picker = CTkDatePicker(combobox)
-		combobox.grid(row=1, column=0, sticky="nsew")
+		self.date_picker = CTkDatePicker(self.combobox)
+		self.combobox.grid(row=1, column=0, sticky="nsew")
