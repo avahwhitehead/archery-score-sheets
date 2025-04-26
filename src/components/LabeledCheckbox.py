@@ -19,8 +19,5 @@ class LabeledCheckbox(tk.Frame):
 		self.label.grid(row=0, column=0, sticky="w")
 
 		self.entry_var = BooleanVar()
-		self.entry = ctk.CTkCheckBox(self, text='', variable=self.entry_var, command=self.checkbox_event, onvalue=True, offvalue=False)
+		self.entry = ctk.CTkCheckBox(self, text='', variable=self.entry_var, onvalue=True, offvalue=False)
 		self.entry.grid(row=1, column=0, sticky="nsew")
-
-	def checkbox_event(self):
-		print("checkbox toggled, current value:", self.entry_var.get())
