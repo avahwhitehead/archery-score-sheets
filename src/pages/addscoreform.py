@@ -1,10 +1,12 @@
 import tkinter as tk
+import datetime
 
 import customtkinter as ctk
 import darkdetect
 import sv_ttk
 
 from src.components.LabeledButton import LabeledButton
+from src.components.LabeledCheckbox import LabeledCheckbox
 from src.components.LabeledDateEntry import LabeledDateEntry
 from src.components.LabeledEntry import LabeledEntry
 from src.components.LabeledNumericEntry import LabeledNumericEntry
@@ -46,6 +48,7 @@ class AddScoreForm(tk.Frame):
 
 		self.date_field = LabeledDateEntry(input_frame, "Date")
 		self.date_field.grid(row=0, column=1, sticky="nsew")
+		self.date_field.combobox.set(datetime.date.today().strftime("%Y-%m-%d"))
 
 		# Second row (archer info)
 
@@ -62,13 +65,18 @@ class AddScoreForm(tk.Frame):
 		self.bowtype_field = LabeledOptionMenu(self, "Bow Type", bow_types[0], bow_types)
 		self.bowtype_field.grid(row=1, column=3, sticky="nsew")
 
+		self.club_member_field = LabeledCheckbox(self, "Club Member")
+		self.club_member_field.grid(row=1, column=4, sticky="nsew")
+
 		# Third row (score info)
 
 		self.score_field = LabeledNumericEntry(self, "Score")
 		self.score_field.grid(row=2, column=0, sticky="nsew")
+		self.score_field.entry_var.set(0)
 
 		self.golds_field = LabeledNumericEntry(self, "Golds")
 		self.golds_field.grid(row=2, column=1, sticky="nsew")
+		self.golds_field.entry_var.set(0)
 
 		save_button = LabeledButton(self, "Save", self.save_score)
 		save_button.grid(row=2, column=3, sticky="nsew")
@@ -81,11 +89,12 @@ class AddScoreForm(tk.Frame):
 		gender_val = self.gender_field.entry_var.get()
 		agecategory_val = self.agecategory_field.entry_var.get()
 		bowtype_val = self.bowtype_field.entry_var.get()
+		club_member_val = self.club_member_field.entry_var.get()
 
 		score_val = int(self.score_field.entry_var.get())
 		golds_val = int(self.golds_field.entry_var.get())
 
-		print("Saving score: ", name_val, gender_val, agecategory_val, bowtype_val, score_val, golds_val, round_val, date_val, sep=" |")
+		print("Saving score: ", round_val, date_val, name_val, gender_val, agecategory_val, bowtype_val, score_val, golds_val, club_member_val, sep=" | ")
 
 
 
