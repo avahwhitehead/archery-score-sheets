@@ -3,9 +3,11 @@ from tkinter import StringVar
 
 import customtkinter as ctk
 
+from src.components.ctkdatepicker import CTkDatePicker
 
-class LabeledOptionMenu(tk.Frame):
-	def __init__(self, parent, label_text, value: str, values: list[str], *args, **kwargs):
+
+class LabeledDateEntry(tk.Frame):
+	def __init__(self, parent, label_text: str, *args, **kwargs):
 		tk.Frame.__init__(self, parent, *args, **kwargs)
 
 		self.grid_columnconfigure(0, weight=1)
@@ -18,9 +20,7 @@ class LabeledOptionMenu(tk.Frame):
 		self.label = tk.Label(self, textvariable=self.label_var)
 		self.label.grid(row=0, column=0, sticky="w")
 
-		self.entry_var = StringVar()
-		self.entry_var.set(value)
+		combobox = ctk.CTkComboBox(self)
 
-		self.entry = ctk.CTkComboBox(self, variable=self.entry_var, values=values)
-
-		self.entry.grid(row=1, column=0, sticky="nsew")
+		date_picker = CTkDatePicker(combobox)
+		combobox.grid(row=1, column=0, sticky="nsew")

@@ -1,10 +1,10 @@
 import tkinter as tk
 
 import customtkinter as ctk
-
 import darkdetect
 import sv_ttk
 
+from src.components.LabeledDateEntry import LabeledDateEntry
 from src.components.LabeledEntry import LabeledEntry
 from src.components.LabeledNumericEntry import LabeledNumericEntry
 from src.components.LabeledOptionMenu import LabeledOptionMenu
@@ -43,7 +43,7 @@ class AddScoreForm(tk.Frame):
 		round_field = LabeledOptionMenu(input_frame, "Round", rounds[0], rounds)
 		round_field.grid(row=0, column=0, sticky="nsew")
 
-		date_field = LabeledEntry(input_frame, "Date")
+		date_field = LabeledDateEntry(input_frame, "Date")
 		date_field.grid(row=0, column=1, sticky="nsew")
 
 		# Second row (archer info)
