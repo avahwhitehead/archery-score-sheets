@@ -1,9 +1,13 @@
 import tkinter as tk
+from tkinter import IntVar
+
 
 class NumericEntry(tk.Entry):
-	def __init__(self, master=None, **kwargs):
-		self.var = tk.StringVar()
-		tk.Entry.__init__(self, master, textvariable=self.var, **kwargs)
+	var: IntVar
+
+	def __init__(self, parent, **kwargs):
+		self.var = tk.IntVar()
+		tk.Entry.__init__(self, parent, **kwargs)
 
 		self.old_value = ''
 

@@ -3,7 +3,9 @@ import tkinter as tk
 import darkdetect
 import sv_ttk
 
-from src.components.NumericEntry import NumericEntry
+from src.components.LabeledEntry import LabeledEntry
+from src.components.LabeledNumericEntry import LabeledNumericEntry
+from src.components.LabeledOptionMenu import LabeledOptionMenu
 from src.data.archerydb import ArcheryDb
 
 
@@ -19,43 +21,24 @@ class AddScoreForm(tk.Frame):
 
 		# Root layout
 		self.grid_columnconfigure(0, weight=1)
+		self.grid_columnconfigure(1, weight=1)
+		self.grid_columnconfigure(2, weight=1)
 		self.grid_rowconfigure(0, weight=0, minsize=40)
 
 		# Input fields
 		input_frame = tk.Frame(self)
-		input_frame.grid_rowconfigure(0, weight=1)
-		input_frame.grid_rowconfigure(1, weight=1)
 		input_frame.grid(row=0, column=0, sticky="nsew")
 
-		name_label_var = tk.StringVar()
-		name_label_var.set("Name")
+		input_frame.grid_rowconfigure(0, weight=1)
 
-		name_label = tk.Label(input_frame, textvariable=name_label_var)
-		name_label.grid(row=0, column=0, sticky="w")
+		name_field = LabeledEntry(self, "Name")
+		name_field.grid(row=0, column=0, sticky="nsew")
 
-		name_input = tk.Entry(input_frame)
-		name_input.grid(row=1, column=0, sticky="nsew")
+		gender_field = LabeledOptionMenu(self, "Gender", genders[0], genders)
+		gender_field.grid(row=0, column=1, sticky="nsew")
 
-		gender_label_var = tk.StringVar()
-		gender_label_var.set("Gender")
-
-		gender_label = tk.Label(input_frame, textvariable=gender_label_var)
-		gender_label.grid(row=0, column=1, sticky="w")
-
-		gender_var = tk.StringVar()
-		gender_var.set(genders[0])
-
-		gender_input = tk.OptionMenu(input_frame, gender_var, *genders)
-		gender_input.grid(row=1, column=1, sticky="nsew")
-
-		score_label_var = tk.StringVar()
-		score_label_var.set("Score")
-
-		score_label = tk.Label(input_frame, textvariable=score_label_var)
-		score_label.grid(row=0, column=2, sticky="w")
-
-		score_input = NumericEntry(input_frame)
-		score_input.grid(row=1, column=2, sticky="nsew")
+		score_field = LabeledNumericEntry(self, "Score")
+		score_field.grid(row=0, column=2, sticky="w")
 
 
 if __name__ == "__main__":
