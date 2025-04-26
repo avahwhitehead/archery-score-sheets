@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import StringVar
 
+import customtkinter as ctk
 
 class LabeledEntry(tk.Frame):
 	def __init__(self, parent, label_text: str, *args, **kwargs):
@@ -17,5 +18,5 @@ class LabeledEntry(tk.Frame):
 		self.label.grid(row=0, column=0, sticky="w")
 
 		self.entry_var = StringVar()
-		self.entry = tk.Entry(self, textvariable=self.entry_var)
+		self.entry = ctk.CTkEntry(self, placeholder_text=label_text, textvariable=self.entry_var)
 		self.entry.grid(row=1, column=0, sticky="nsew")

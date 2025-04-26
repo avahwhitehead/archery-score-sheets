@@ -1,5 +1,7 @@
 import tkinter as tk
 
+import customtkinter as ctk
+
 import darkdetect
 import sv_ttk
 
@@ -69,7 +71,7 @@ class AddScoreForm(tk.Frame):
 
 
 if __name__ == "__main__":
-	root = tk.Tk()
+	root = ctk.CTk()
 
 	sv_ttk.set_theme(darkdetect.theme())
 

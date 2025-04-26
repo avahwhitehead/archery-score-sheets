@@ -1,6 +1,10 @@
+import os
 import tkinter as tk
 from tkinter import StringVar
 
+import customtkinter as ctk
+
+from PIL import Image, ImageTk
 
 class LabeledOptionMenu(tk.Frame):
 	def __init__(self, parent, label_text, value: str, values: list[str], *args, **kwargs):
@@ -18,5 +22,7 @@ class LabeledOptionMenu(tk.Frame):
 
 		self.entry_var = StringVar()
 		self.entry_var.set(value)
-		self.entry = tk.OptionMenu(self, self.entry_var, value, *values)
+
+		self.entry = ctk.CTkOptionMenu(self, variable=self.entry_var, values=values)
+
 		self.entry.grid(row=1, column=0, sticky="nsew")

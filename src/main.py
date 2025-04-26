@@ -1,4 +1,5 @@
 import tkinter as tk
+import customtkinter as ctk
 
 import darkdetect
 import sv_ttk
@@ -17,7 +18,7 @@ class MainApplication(tk.Frame):
 
 
 if __name__ == "__main__":
-	root = tk.Tk()
+	root = ctk.CTk()
 
 	DatabaseInit().initialize()
 
