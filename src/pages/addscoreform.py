@@ -4,6 +4,7 @@ import customtkinter as ctk
 import darkdetect
 import sv_ttk
 
+from src.components.LabeledButton import LabeledButton
 from src.components.LabeledDateEntry import LabeledDateEntry
 from src.components.LabeledEntry import LabeledEntry
 from src.components.LabeledNumericEntry import LabeledNumericEntry
@@ -68,6 +69,12 @@ class AddScoreForm(tk.Frame):
 
 		golds_field = LabeledNumericEntry(self, "Golds")
 		golds_field.grid(row=2, column=1, sticky="nsew")
+
+		save_button = LabeledButton(self, "Save", self.save_score)
+		save_button.grid(row=2, column=3, sticky="nsew")
+
+	def save_score(self):
+		pass
 
 
 if __name__ == "__main__":
