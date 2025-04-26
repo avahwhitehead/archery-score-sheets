@@ -19,26 +19,53 @@ class AddScoreForm(tk.Frame):
 		genders = self.database.query_all('SELECT Name FROM Gender')
 		genders = [g['Name'] for g in genders]
 
+		age_categories = self.database.query_all('SELECT Name FROM main.AgeCategory')
+		age_categories = [c['Name'] for c in age_categories]
+
+		bow_types = self.database.query_all('SELECT Name FROM BowType')
+		bow_types = [b['Name'] for b in bow_types]
+
+		rounds = self.database.query_all('SELECT Name FROM Round')
+		rounds = [r['Name'] for r in rounds]
+
 		# Root layout
-		self.grid_columnconfigure(0, weight=1)
-		self.grid_columnconfigure(1, weight=1)
-		self.grid_columnconfigure(2, weight=1)
 		self.grid_rowconfigure(0, weight=0, minsize=40)
 
 		# Input fields
 		input_frame = tk.Frame(self)
 		input_frame.grid(row=0, column=0, sticky="nsew")
 
-		input_frame.grid_rowconfigure(0, weight=1)
+
+		# First row (shoot info)
+
+		round_field = LabeledOptionMenu(input_frame, "Round", rounds[0], rounds)
+		round_field.grid(row=0, column=0, sticky="nsew")
+
+		date_field = LabeledEntry(input_frame, "Date")
+		date_field.grid(row=0, column=1, sticky="nsew")
+
+		# Second row (archer info)
 
 		name_field = LabeledEntry(self, "Name")
-		name_field.grid(row=0, column=0, sticky="nsew")
+		name_field.grid(row=1, column=0, sticky="nsew")
 
 		gender_field = LabeledOptionMenu(self, "Gender", genders[0], genders)
-		gender_field.grid(row=0, column=1, sticky="nsew")
+		gender_field.grid(row=1, column=1, sticky="nsew")
+
+		age_category_default = 'Senior' if 'Senior' in age_categories else age_categories[0]
+		agecategory_field = LabeledOptionMenu(self, "Age Category", age_category_default, age_categories)
+		agecategory_field.grid(row=1, column=2, sticky="nsew")
+
+		bowtype_field = LabeledOptionMenu(self, "Bow Type", bow_types[0], bow_types)
+		bowtype_field.grid(row=1, column=3, sticky="nsew")
+
+		# Third row (score info)
 
 		score_field = LabeledNumericEntry(self, "Score")
-		score_field.grid(row=0, column=2, sticky="w")
+		score_field.grid(row=2, column=0, sticky="nsew")
+
+		golds_field = LabeledNumericEntry(self, "Golds")
+		golds_field.grid(row=2, column=1, sticky="nsew")
 
 
 if __name__ == "__main__":
