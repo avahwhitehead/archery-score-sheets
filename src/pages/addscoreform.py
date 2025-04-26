@@ -21,17 +21,17 @@ class AddScoreForm(tk.Frame):
 
 		self.database = ArcheryDb()
 
-		genders = self.database.query_all('SELECT Name FROM Gender')
-		genders = [g['Name'] for g in genders]
+		self.genders = self.database.query_all('SELECT Id, Name FROM Gender')
+		gender_values = [g['Name'] for g in self.genders]
 
-		age_categories = self.database.query_all('SELECT Name FROM main.AgeCategory')
-		age_categories = [c['Name'] for c in age_categories]
+		self.age_categories = self.database.query_all('SELECT Id, Name FROM main.AgeCategory')
+		age_category_values = [c['Name'] for c in self.age_categories]
 
-		bow_types = self.database.query_all('SELECT Name FROM BowType')
-		bow_types = [b['Name'] for b in bow_types]
+		self.bow_types = self.database.query_all('SELECT Id, Name FROM BowType')
+		bow_type_values = [b['Name'] for b in self.bow_types]
 
-		rounds = self.database.query_all('SELECT Name FROM Round')
-		rounds = [r['Name'] for r in rounds]
+		self.rounds = self.database.query_all('SELECT Id, Name FROM Round')
+		round_values = [r['Name'] for r in self.rounds]
 
 		# Root layout
 		self.grid_rowconfigure(0, weight=0, minsize=40)
@@ -43,7 +43,7 @@ class AddScoreForm(tk.Frame):
 
 		# First row (shoot info)
 
-		self.round_field = LabeledOptionMenu(input_frame, "Round", rounds[0], rounds)
+		self.round_field = LabeledOptionMenu(input_frame, "Round", round_values[0], round_values)
 		self.round_field.grid(row=0, column=0, sticky="nsew")
 
 		self.date_field = LabeledDateEntry(input_frame, "Date")
@@ -55,14 +55,14 @@ class AddScoreForm(tk.Frame):
 		self.name_field = LabeledEntry(self, "Name")
 		self.name_field.grid(row=1, column=0, sticky="nsew")
 
-		self.gender_field = LabeledOptionMenu(self, "Gender", genders[0], genders)
+		self.gender_field = LabeledOptionMenu(self, "Gender", gender_values[0], gender_values)
 		self.gender_field.grid(row=1, column=1, sticky="nsew")
 
-		age_category_default = 'Senior' if 'Senior' in age_categories else age_categories[0]
-		self.agecategory_field = LabeledOptionMenu(self, "Age Category", age_category_default, age_categories)
+		age_category_default = 'Senior' if 'Senior' in age_category_values else age_category_values[0]
+		self.agecategory_field = LabeledOptionMenu(self, "Age Category", age_category_default, age_category_values)
 		self.agecategory_field.grid(row=1, column=2, sticky="nsew")
 
-		self.bowtype_field = LabeledOptionMenu(self, "Bow Type", bow_types[0], bow_types)
+		self.bowtype_field = LabeledOptionMenu(self, "Bow Type", bow_type_values[0], bow_type_values)
 		self.bowtype_field.grid(row=1, column=3, sticky="nsew")
 
 		self.club_member_field = LabeledCheckbox(self, "Club Member")
@@ -93,6 +93,11 @@ class AddScoreForm(tk.Frame):
 
 		score_val = int(self.score_field.entry_var.get())
 		golds_val = int(self.golds_field.entry_var.get())
+
+		round_id = next(r['Id'] for r in self.rounds if r['Name'] == round_val)
+		gender_id = next(g['Id'] for g in self.genders if g['Name'] == gender_val)
+		agecategory_id = next(c['Id'] for c in self.age_categories if c['Name'] == agecategory_val)
+		bowtype_id = next(b['Id'] for b in self.bow_types if b['Name'] == bowtype_val)
 
 		print("Saving score: ", round_val, date_val, name_val, gender_val, agecategory_val, bowtype_val, score_val, golds_val, club_member_val, sep=" | ")
 
