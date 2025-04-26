@@ -23,6 +23,6 @@ class LabeledOptionMenu(tk.Frame):
 		self.entry_var = StringVar()
 		self.entry_var.set(value)
 
-		self.entry = ctk.CTkOptionMenu(self, variable=self.entry_var, values=values)
+		self.entry = ctk.CTkComboBox(self, variable=self.entry_var, values=values)
 
 		self.entry.grid(row=1, column=0, sticky="nsew")
