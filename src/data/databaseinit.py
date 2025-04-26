@@ -86,6 +86,9 @@ class DatabaseInit:
 			CREATE TABLE "Archer" (
 				"Id"		INTEGER NOT NULL,
 				"Name"		TEXT NOT NULL,
+				"Dob"		INTEGER,
+				"AgbNumber"	TEXT,
+				"Notes"		TEXT,
 				PRIMARY KEY("Id" AUTOINCREMENT)
 			)
 		''')
@@ -100,8 +103,8 @@ class DatabaseInit:
 
 		self.database.execute('''
 			CREATE TABLE "Gender" (
-			"Id"			INTEGER NOT NULL UNIQUE,
-			"Name"			TEXT NOT NULL,
+				"Id"			INTEGER NOT NULL UNIQUE,
+				"Name"			TEXT NOT NULL,
 				PRIMARY KEY("Id" AUTOINCREMENT)
 			)
 		''')
@@ -126,6 +129,8 @@ class DatabaseInit:
 				"DateAchieved"	INTEGER NOT NULL,
 				"Golds"			INTEGER,
 				"Score"			INTEGER NOT NULL,
+				"ClubMember"	INTEGER NOT NULL,
+				"Notes"			TEXT,
 				PRIMARY KEY("Id" AUTOINCREMENT),
 				FOREIGN KEY("AgeCategoryId") REFERENCES "AgeCategory"("Id"),
 				FOREIGN KEY("ArcherId") REFERENCES "Archer"("Id"),
