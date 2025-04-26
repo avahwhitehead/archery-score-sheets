@@ -17,5 +17,6 @@ class LabeledOptionMenu(tk.Frame):
 		self.label.grid(row=0, column=0, sticky="w")
 
 		self.entry_var = StringVar()
+		self.entry_var.set(value)
 		self.entry = tk.OptionMenu(self, self.entry_var, value, *values)
 		self.entry.grid(row=1, column=0, sticky="nsew")
