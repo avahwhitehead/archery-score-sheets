@@ -21,6 +21,28 @@ class LabeledOptionMenu(tk.Frame):
 		self.entry_var = StringVar()
 		self.entry_var.set(value)
 
-		self.entry = ctk.CTkComboBox(self, variable=self.entry_var, values=values)
+		self._values = values
 
+		self.entry = ctk.CTkComboBox(self, variable=self.entry_var, values=values)
 		self.entry.grid(row=1, column=0, sticky="nsew")
+
+		self.entry.bind('<Up>', self.on_up_key)
+		self.entry.bind('<Down>', self.on_down_key)
+
+	def on_up_key(self, event):
+		try:
+			selected_index = self._values.index(self.entry_var.get())
+		except ValueError:
+			return
+
+		if selected_index > 0:
+			self.entry_var.set(self._values[selected_index - 1])
+
+	def on_down_key(self, event):
+		try:
+			selected_index = self._values.index(self.entry_var.get())
+		except ValueError:
+			return
+
+		if selected_index < len(self._values) - 1:
+			self.entry_var.set(self._values[selected_index + 1])
