@@ -20,6 +20,10 @@ class NumericEntry(ctk.CTkEntry):
 	def check(self, *args):
 		curr_value = self.var.get()
 
+		if curr_value == '':
+			self.old_value = ''
+			return
+
 		is_digit = True
 		try:
 			int(curr_value)
