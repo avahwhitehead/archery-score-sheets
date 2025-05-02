@@ -78,18 +78,18 @@ class DatabaseInit:
 			CREATE TABLE "AgeCategory" (
 				"Id"		INTEGER NOT NULL,
 				"Name"		INTEGER NOT NULL,
-				PRIMARY KEY("Id" AUTOINCREMENT)
+				PRIMARY KEY("Id")
 			)
 		''')
 
 		self.database.execute('''
 			CREATE TABLE "Archer" (
 				"Id"		INTEGER NOT NULL,
-				"Name"		TEXT NOT NULL,
+				"Name"		TEXT NOT NULL UNIQUE,
 				"Dob"		INTEGER,
 				"AgbNumber"	TEXT,
 				"Notes"		TEXT,
-				PRIMARY KEY("Id" AUTOINCREMENT)
+				PRIMARY KEY("Id")
 			)
 		''')
 
@@ -97,7 +97,7 @@ class DatabaseInit:
 			CREATE TABLE "BowType" (
 				"Id"		INTEGER NOT NULL,
 				"Name"		TEXT NOT NULL,
-				PRIMARY KEY("Id" AUTOINCREMENT)
+				PRIMARY KEY("Id")
 			)
 		''')
 
@@ -105,7 +105,7 @@ class DatabaseInit:
 			CREATE TABLE "Gender" (
 				"Id"			INTEGER NOT NULL UNIQUE,
 				"Name"			TEXT NOT NULL,
-				PRIMARY KEY("Id" AUTOINCREMENT)
+				PRIMARY KEY("Id")
 			)
 		''')
 
@@ -114,7 +114,7 @@ class DatabaseInit:
 				"Id"		INTEGER NOT NULL,
 				"Name"		INTEGER NOT NULL,
 				"Outdoor"	INTEGER NOT NULL,
-				PRIMARY KEY("Id" AUTOINCREMENT)
+				PRIMARY KEY("Id")
 			)
 		''')
 
@@ -131,7 +131,7 @@ class DatabaseInit:
 				"Score"			INTEGER NOT NULL,
 				"ClubMember"	INTEGER NOT NULL,
 				"Notes"			TEXT,
-				PRIMARY KEY("Id" AUTOINCREMENT),
+				PRIMARY KEY("Id"),
 				FOREIGN KEY("AgeCategoryId") REFERENCES "AgeCategory"("Id"),
 				FOREIGN KEY("ArcherId") REFERENCES "Archer"("Id"),
 				FOREIGN KEY("BowTypeId") REFERENCES "BowType"("Id"),

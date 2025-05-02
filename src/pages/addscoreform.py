@@ -13,6 +13,7 @@ from src.components.LabeledEntry import LabeledEntry
 from src.components.LabeledNumericEntry import LabeledNumericEntry
 from src.components.LabeledOptionMenu import LabeledOptionMenu
 from src.data.archerydb import ArcheryDb
+from src.entities.archer import Archer
 
 
 class AddScoreForm(tk.Frame):
@@ -106,22 +107,11 @@ class AddScoreForm(tk.Frame):
 
 		unix_datetime = datetime.datetime.strptime(date_val, "%Y-%m-%d").timestamp()
 
-		archer_id = self.database.query_one(
-			'''
-			SELECT Id FROM Archer
-			WHERE Name = ?
-			''',
-			[name_val]
-		)
+		archer = self.database.get_archer_by_name(name_val)
 
-		if archer_id is not None:
-			archer_id = archer_id['Id']
-		else:
-			cursor = self.database.execute(
-				'INSERT INTO Archer (Name) VALUES (?)',
-				[name_val]
-			)
-			archer_id = cursor.lastrowid
+		if archer is None:
+			archer = Archer(name = name_val)
+			archer = self.database.add_archer(archer)
 
 		self.database.execute_many(
 			'''
@@ -131,7 +121,7 @@ class AddScoreForm(tk.Frame):
 				(?, ?, ?, ?, ?, ?, ?, ?, ?)
 			''',
 			[
-				(archer_id, bowtype_id, gender_id, round_id, agecategory_id, club_member_val, unix_datetime, golds_val, score_val),
+				(archer.id, bowtype_id, gender_id, round_id, agecategory_id, club_member_val, unix_datetime, golds_val, score_val),
 			]
 		)
 
