@@ -1,8 +1,9 @@
-import tkinter as tk
 import datetime
+import tkinter as tk
 
 import customtkinter as ctk
 import darkdetect
+import reactivex as rx
 import sv_ttk
 
 from src.components.LabeledButton import LabeledButton
@@ -15,7 +16,11 @@ from src.data.archerydb import ArcheryDb
 
 
 class AddScoreForm(tk.Frame):
+	onSave: rx.subject.Subject
+
 	def __init__(self, parent, *args, **kwargs):
+		self.onSave = rx.subject.Subject()
+
 		tk.Frame.__init__(self, parent, *args, **kwargs)
 		self.parent = parent
 
@@ -112,9 +117,9 @@ class AddScoreForm(tk.Frame):
 		if archer_id is not None:
 			archer_id = archer_id['Id']
 		else:
-			cursor = self.database.execute_many(
+			cursor = self.database.execute(
 				'INSERT INTO Archer (Name) VALUES (?)',
-				[(name_val,)]
+				[name_val]
 			)
 			archer_id = cursor.lastrowid
 
@@ -129,6 +134,8 @@ class AddScoreForm(tk.Frame):
 				(archer_id, bowtype_id, gender_id, round_id, agecategory_id, club_member_val, unix_datetime, golds_val, score_val),
 			]
 		)
+
+		self.onSave.on_next(True)
 
 
 if __name__ == "__main__":

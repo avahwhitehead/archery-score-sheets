@@ -26,6 +26,8 @@ class ScoresPage(tk.Frame):
 		add_score_form = AddScoreForm(self)
 		add_score_form.grid(row=0, sticky="nsew", padx=10, pady=10)
 
+		add_score_form.onSave.subscribe(lambda _: self.after(0, self.load_scores))
+
 		# Display grid
 		sheet_frame = tk.Frame(self)
 		sheet_frame.grid(row=1, sticky="nsew")
