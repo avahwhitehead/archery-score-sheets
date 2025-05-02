@@ -53,7 +53,7 @@ class DatabaseInit:
 		]
 
 		self._scores = [
-			(1, 1, 1, 1, 1, 1745601664, 10, 100)
+			(1, 1, 1, 1, 1, 1, 1745601664, 10, 100)
 		]
 
 	def initialize(self):
@@ -151,5 +151,12 @@ class DatabaseInit:
 
 		self.database.execute_many("INSERT INTO Archer (Name) VALUES (?)", self._archers)
 
-		self.database.execute_many("INSERT INTO Score (ArcherId, BowTypeId, GenderId, RoundId, AgeCategoryId, DateAchieved, Golds, Score) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", self._scores)
+		self.database.execute_many(
+			"""
+			INSERT INTO Score 
+			(ArcherId, BowTypeId, GenderId, RoundId, AgeCategoryId, ClubMember, DateAchieved, Golds, Score
+			) VALUES (
+				?, ?, ?,  ?, ?, ?, ?, ?, ?
+		 	)
+			""", self._scores)
 

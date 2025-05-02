@@ -78,7 +78,7 @@ class AddScoreForm(tk.Frame):
 		self.golds_field.grid(row=2, column=1, sticky="nsew")
 		self.golds_field.entry_var.set(0)
 
-		save_button = LabeledButton(self, "Save", self.save_score)
+		save_button = LabeledButton(self, "Save", lambda: self.after(0, lambda: self.save_score()))
 		save_button.grid(row=2, column=3, sticky="nsew")
 
 	def save_score(self):
@@ -99,8 +99,36 @@ class AddScoreForm(tk.Frame):
 		agecategory_id = next(c['Id'] for c in self.age_categories if c['Name'] == agecategory_val)
 		bowtype_id = next(b['Id'] for b in self.bow_types if b['Name'] == bowtype_val)
 
-		print("Saving score: ", round_val, date_val, name_val, gender_val, agecategory_val, bowtype_val, score_val, golds_val, club_member_val, sep=" | ")
+		unix_datetime = datetime.datetime.strptime(date_val, "%Y-%m-%d").timestamp()
 
+		archer_id = self.database.query_one(
+			'''
+			SELECT Id FROM Archer
+			WHERE Name = ?
+			''',
+			[name_val]
+		)
+
+		if archer_id is not None:
+			archer_id = archer_id['Id']
+		else:
+			cursor = self.database.execute_many(
+				'INSERT INTO Archer (Name) VALUES (?)',
+				[(name_val,)]
+			)
+			archer_id = cursor.lastrowid
+
+		self.database.execute_many(
+			'''
+			INSERT INTO Score
+			(ArcherId, BowTypeId, GenderId, RoundId, AgeCategoryId, ClubMember, DateAchieved, Golds, Score)
+			VALUES
+				(?, ?, ?, ?, ?, ?, ?, ?, ?)
+			''',
+			[
+				(archer_id, bowtype_id, gender_id, round_id, agecategory_id, club_member_val, unix_datetime, golds_val, score_val),
+			]
+		)
 
 
 if __name__ == "__main__":

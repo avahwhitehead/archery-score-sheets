@@ -27,25 +27,6 @@ class ScoresPage(tk.Frame):
 		add_score_form.grid(row=0, sticky="nsew", padx=10, pady=10)
 
 		# Display grid
-		data = self.database.query_all(
-			'''
-			SELECT 
-				Archer.Name,
-				Gender.Name,
-				AgeCategory.Name,
-				BowType.Name,
-				Round.Name,
-				Score.Golds,
-				Score.Score
-			FROM Score
-			INNER JOIN Archer ON Score.ArcherId = Archer.Id
-			INNER JOIN BowType ON Score.BowTypeId = BowType.Id
-			INNER JOIN Gender ON Score.GenderId = Gender.Id
-			INNER JOIN AgeCategory ON Score.AgeCategoryId = AgeCategory.Id
-			INNER JOIN Round ON Score.RoundId = Round.Id
-			'''
-		)
-
 		sheet_frame = tk.Frame(self)
 		sheet_frame.grid(row=1, sticky="nsew")
 		sheet_frame.grid_rowconfigure(0, weight=1)
@@ -56,12 +37,36 @@ class ScoresPage(tk.Frame):
 		self.sheet = tksheet.Sheet(
 			sheet_frame,
 			headers=sheet_headers,
-			data=data,
+			data=[[]],
 			vertical_grid_to_end_of_window=True,
 		)
 		self.sheet.enable_bindings()
 
 		self.sheet.grid(row=0, sticky="nsew", padx=10, pady=10)
+
+		self.after(100, self.load_scores)
+
+	def load_scores(self):
+		data = self.database.query_all(
+			'''
+            SELECT
+                Archer.Name,
+                Gender.Name,
+                AgeCategory.Name,
+                BowType.Name,
+                Round.Name,
+                Score.Golds,
+                Score.Score
+            FROM Score
+                     INNER JOIN Archer ON Score.ArcherId = Archer.Id
+                     INNER JOIN BowType ON Score.BowTypeId = BowType.Id
+                     INNER JOIN Gender ON Score.GenderId = Gender.Id
+                     INNER JOIN AgeCategory ON Score.AgeCategoryId = AgeCategory.Id
+                     INNER JOIN Round ON Score.RoundId = Round.Id
+			'''
+		)
+
+		self.sheet.set_sheet_data(data)
 
 
 if __name__ == "__main__":
