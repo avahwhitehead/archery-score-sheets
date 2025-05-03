@@ -42,50 +42,85 @@ class AddScoreForm(tk.Frame):
 		# Root layout
 		self.grid_rowconfigure(0, weight=0, minsize=40)
 
-		# Input fields
-		input_frame = tk.Frame(self)
-		input_frame.grid(row=0, column=0, sticky="nsew")
-
-
 		# First row (shoot info)
 
-		self.round_field = LabeledOptionMenu(input_frame, "Round", round_values[0], round_values)
+		self.round_field = LabeledOptionMenu(
+			self,
+			"Round",
+			round_values[0],
+			round_values,
+		)
 		self.round_field.grid(row=0, column=0, sticky="nsew")
 
-		self.date_field = LabeledDateEntry(input_frame, "Date")
+		self.date_field = LabeledDateEntry(
+			self,
+			"Date",
+		)
 		self.date_field.grid(row=0, column=1, sticky="nsew")
 		self.date_field.combobox.set(datetime.date.today().strftime("%Y-%m-%d"))
 
 		# Second row (archer info)
 
-		self.name_field = LabeledEntry(self, "Name")
+		self.name_field = LabeledEntry(
+			self,
+			"Name",
+		)
 		self.name_field.grid(row=1, column=0, sticky="nsew")
 
-		self.gender_field = LabeledOptionMenu(self, "Gender", gender_values[0], gender_values)
+		self.gender_field = LabeledOptionMenu(
+			self,
+			"Gender",
+			gender_values[0],
+			gender_values,
+		)
 		self.gender_field.grid(row=1, column=1, sticky="nsew")
 
 		age_category_default = 'Senior' if 'Senior' in age_category_values else age_category_values[0]
-		self.agecategory_field = LabeledOptionMenu(self, "Age Category", age_category_default, age_category_values)
+		self.agecategory_field = LabeledOptionMenu(
+			self,
+			"Age Category",
+			age_category_default,
+			age_category_values,
+		)
 		self.agecategory_field.grid(row=1, column=2, sticky="nsew")
 
-		self.bowtype_field = LabeledOptionMenu(self, "Bow Type", bow_type_values[0], bow_type_values)
+		self.bowtype_field = LabeledOptionMenu(
+			self,
+			"Bow Type",
+			bow_type_values[0],
+			bow_type_values,
+		)
 		self.bowtype_field.grid(row=1, column=3, sticky="nsew")
 
-		self.club_member_field = LabeledCheckbox(self, "Club Member")
+		self.club_member_field = LabeledCheckbox(
+			self,
+			"Club Member",
+		)
+		self.club_member_field.lift()
 		self.club_member_field.grid(row=1, column=4, sticky="nsew")
 
 		# Third row (score info)
 
-		self.score_field = LabeledNumericEntry(self, "Score")
+		self.score_field = LabeledNumericEntry(
+			self,
+			"Score",
+		)
 		self.score_field.grid(row=2, column=0, sticky="nsew")
 		self.score_field.entry_var.set(0)
 
-		self.golds_field = LabeledNumericEntry(self, "Golds")
+		self.golds_field = LabeledNumericEntry(
+			self,
+			"Golds",
+		)
 		self.golds_field.grid(row=2, column=1, sticky="nsew")
 		self.golds_field.entry_var.set(0)
 
-		save_button = LabeledButton(self, "Save", lambda: self.after(0, lambda: self.save_score()))
-		save_button.grid(row=2, column=3, sticky="nsew")
+		self.save_button = LabeledButton(
+			self,
+			"Save",
+			lambda: self.after(0, lambda: self.save_score()),
+		)
+		self.save_button.grid(row=2, column=3, sticky="nsew")
 
 	def save_score(self):
 		round_val = self.round_field.entry_var.get()
