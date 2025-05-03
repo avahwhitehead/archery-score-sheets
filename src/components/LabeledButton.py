@@ -27,6 +27,17 @@ class LabeledButton(tk.Frame):
 		self.bind("<FocusIn>", self._on_focus)
 		self.bind("<FocusOut>", self._on_focus_out)
 
+		self.button.bind('<KeyRelease-space>', self.on_enter)
+		self.button.bind('<KeyRelease-Return>', self.on_enter)
+
+	def on_enter(self, e=None):
+		original_fg_color = self.button.cget('fg_color')
+		self.button.configure(fg_color=self.button.cget('hover_color'))
+
+		self.button.invoke()
+
+		self.after(150, lambda x=None: self.button.configure(fg_color=original_fg_color))
+
 	def _on_focus(self, e=None):
 		self.button.configure(border_color=self.button.cget('hover_color'))
 		self.button.configure(border_width=3)
