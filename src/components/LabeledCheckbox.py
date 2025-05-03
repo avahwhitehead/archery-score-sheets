@@ -1,7 +1,8 @@
 import tkinter as tk
 
-import customtkinter as ctk
 from customtkinter import StringVar, BooleanVar
+
+from src.components.TabbableCheckBox import TabbableCheckBox
 
 
 class LabeledCheckbox(tk.Frame):
@@ -19,5 +20,5 @@ class LabeledCheckbox(tk.Frame):
 		self.label.grid(row=0, column=0, sticky="w")
 
 		self.entry_var = BooleanVar()
-		self.entry = ctk.CTkCheckBox(self, text='', variable=self.entry_var, onvalue=True, offvalue=False)
+		self.entry = TabbableCheckBox(self, text='', variable=self.entry_var, onvalue=True, offvalue=False)
 		self.entry.grid(row=1, column=0, sticky="nsew")
