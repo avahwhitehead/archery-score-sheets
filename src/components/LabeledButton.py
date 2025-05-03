@@ -8,7 +8,7 @@ class LabeledButton(tk.Frame):
 	button: ctk.CTkButton
 
 	def __init__(self, parent, text: str, command: callable(Any), *args, **kwargs):
-		tk.Frame.__init__(self, parent, *args, **kwargs)
+		tk.Frame.__init__(self, parent)
 
 		self.grid_columnconfigure(0, weight=1)
 		self.grid_rowconfigure(0, weight=0)
@@ -19,5 +19,5 @@ class LabeledButton(tk.Frame):
 
 		self.button_var = StringVar()
 		self.button_var.set(text)
-		self.button = ctk.CTkButton(self, textvariable=self.button_var, command=command)
+		self.button = ctk.CTkButton(self, textvariable=self.button_var, command=command, *args, **kwargs)
 		self.button.grid(row=1, column=0, sticky="nsew", padx=0, pady=0)

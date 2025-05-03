@@ -6,7 +6,7 @@ import customtkinter as ctk
 
 class LabeledOptionMenu(tk.Frame):
 	def __init__(self, parent, label_text, value: str, values: list[str], *args, **kwargs):
-		tk.Frame.__init__(self, parent, *args, **kwargs)
+		tk.Frame.__init__(self, parent)
 
 		self.grid_columnconfigure(0, weight=1)
 		self.grid_rowconfigure(0, weight=0)
@@ -23,7 +23,7 @@ class LabeledOptionMenu(tk.Frame):
 
 		self._values = values
 
-		self.entry = ctk.CTkComboBox(self, variable=self.entry_var, values=values)
+		self.entry = ctk.CTkComboBox(self, variable=self.entry_var, values=values, *args, **kwargs)
 		self.entry.grid(row=1, column=0, sticky="nsew")
 
 		self.entry.bind('<Up>', self.on_up_key)
