@@ -1,3 +1,5 @@
+# Code taken from: https://github.com/TomSchimansky/CustomTkinter/issues/2712#issuecomment-2813737035
+
 import darkdetect
 import sv_ttk
 
