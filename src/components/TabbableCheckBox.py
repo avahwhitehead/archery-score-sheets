@@ -49,11 +49,11 @@ class TabbableCheckBox(ctk.CTkCheckBox):
         self.bind("<KeyRelease-Return>", self._focus_action)    # For Enter key release
 
     def _on_focus(self, e=None):
-        self.configure(bg_color=self._select_color)
+        self.configure(border_color=self._select_color)
 
 
     def _on_focus_out(self, e=None):
-        self.configure(bg_color=self._bg_color_default)
+        self.configure(border_color=self._bg_color_default)
 
 
     def _focus_action(self, e=None):
@@ -89,15 +89,15 @@ if __name__ == "__main__":
 
     frame = ctk.CTkFrame(root)
     frame.grid(row=0, column=0)
-    w1 = Checkbox(frame, text="check one")
+    w1 = TabbableCheckBox(frame, text="check one")
     w1.grid(row=0, column=0)
-    w2 = Checkbox(frame, text="check two")
+    w2 = TabbableCheckBox(frame, text="check two")
     w2.grid(row=1, column=0)
-    w3 = Checkbox(frame, text="check three")
+    w3 = TabbableCheckBox(frame, text="check three")
     w3.grid(row=2, column=0)
-    w4 = Checkbox(frame, text="check four")
+    w4 = TabbableCheckBox(frame, text="check four")
     w4.grid(row=3, column=0)
-    w5 = Checkbox(frame, text="check five")
+    w5 = TabbableCheckBox(frame, text="check five")
     w5.grid(row=4, column=0)
 
     w2.configure(state="disabled")
