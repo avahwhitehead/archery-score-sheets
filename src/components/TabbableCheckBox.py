@@ -33,9 +33,9 @@ class TabbableCheckBox(ctk.CTkCheckBox):
                  select_color: str | tuple[str, str] = ["#a5dcff", "#155d91"],
                  **kwargs):
         """
-        Modified `CTkCheckbox` to support nevigation through Tab.
-        On tab selection, background of the checkbox will be highlighted as `select_color`.
-        Using space bar key or enter key, it can be toggled between the states.
+        Modified `CTkCheckbox` to support navigation through Tab.
+        On tab selection, the background of the checkbox will be highlighted as `select_color`.
+        Using the space bar key or enter key, it can be toggled between the states.
         """
 
         super().__init__(master, width, height, checkbox_width, checkbox_height, corner_radius, border_width, bg_color, fg_color, hover_color, border_color, checkmark_color, text_color, text_color_disabled, text, font, textvariable, state, hover, command, onvalue, offvalue, variable, **kwargs)
@@ -45,8 +45,8 @@ class TabbableCheckBox(ctk.CTkCheckBox):
 
         self.bind("<FocusIn>", self._on_focus)
         self.bind("<FocusOut>", self._on_focus_out)
-        self.bind("<KeyRelease-space>", self._focus_action)     # For Space Bar key release
-        self.bind("<KeyRelease-Return>", self._focus_action)    # For Enter key release
+        self.bind("<KeyRelease-space>", self._focus_action)
+        self.bind("<KeyRelease-Return>", self._focus_action)
 
     def _on_focus(self, e=None):
         self.configure(bg_color=self._select_color)
