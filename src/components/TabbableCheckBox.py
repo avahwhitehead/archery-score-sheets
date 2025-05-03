@@ -49,11 +49,11 @@ class TabbableCheckBox(ctk.CTkCheckBox):
         self.bind("<KeyRelease-Return>", self._focus_action)    # For Enter key release
 
     def _on_focus(self, e=None):
-        self.configure(border_color=self._select_color)
+        self.configure(bg_color=self._select_color)
 
 
     def _on_focus_out(self, e=None):
-        self.configure(border_color=self._bg_color_default)
+        self.configure(bg_color=self._bg_color_default)
 
 
     def _focus_action(self, e=None):
